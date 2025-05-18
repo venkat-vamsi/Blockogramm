@@ -18,8 +18,7 @@ class AuthPage extends StatefulWidget {
 
 class _AuthPageState extends State<AuthPage> {
   late web3.Web3Client web3client;
-  final String contractAddress =
-      "0x94d27754C8C8290aA2C88E8C7F34270fDc7da2CB";
+  final String contractAddress = "0x3Eb11333C089746703258f500e7EEDB414e85812";
   final String abi = '''[
     {"inputs":[{"internalType":"string","name":"_username","type":"string"},{"internalType":"string","name":"_userDataHash","type":"string"}],"name":"registerUser","outputs":[],"stateMutability":"nonpayable","type":"function"},
     {"inputs":[{"internalType":"string","name":"_username","type":"string"}],"name":"getUser","outputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"string","name":"","type":"string"},{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},
@@ -40,16 +39,16 @@ class _AuthPageState extends State<AuthPage> {
   bool _obscurePassword = true;
 
   final List<String> privateKeys = [
-    "0xe02bb16d6c3c84f25639bd133f610810d855c7b2afa773acd9820d0563e4964b",
-    "0xb480ed09cec8c2a85dcc90c8dcba947a88a2c1123a9a2a5a6796817e33c14d7f",
-    "0x9aad1af879aa26bc48df11deec7cabfc729d3bb58c8535fd2988f7fe55b61725",
-    "0x26693e7cdac6b7dbf4d2bb83ae1635e2636b05714bdff1b9dc3db675f1ac6afa",
-    "0xda271c4e8cac7be6371f38cf51cf1a368b6ea02ba752111a6a1eb9671a20df34",
-    "0x58f0b6499aa3ac19934d9c788d96a51c05589482dcfa8fba240e4701ecf1ee56",
-    "0xa265cb15f139e80e88afee455b30ca1fb63d1bf89e7088bd5bb45c1588188d8f",
-    "0xd614cb5e69b7858032c6f7680c40ed0fa73cb6cacf79f4c231223b2fbb97b466",
-    "0x4233891eb697605e904355130ef67dedfb1fcc1ce8d3f38a59f0d1d480fc521c",
-    "0xf9413d3e3ab61ca6212ec4cebe3bcc637e30ae7d19bfa2c67255b31bcc25101e",
+    "0xd21ffcf0279db4230046e94d1b9bd60c553cf2eda69395380da8ef49019e52b8",
+    "0x8192447d52b55ac872d7505cd4fadf94fe342ade575ed944525c29769f781abf",
+    "0xa8052761b280030cdd2742e3eeff40f5ce95e7bad4612b8d6ea991e8d56772a3",
+    "0x15cd4c1f59919e79ecc7ee336f564e41b0f684f1d0fe74b8568004437b9a2f45",
+    "0xb4ddb0e18c7c20ee2186bb1a87437c16f84dd37386955939a3c409e323509863",
+    "0x515ec86097514ee0fd221121fdfcaa35ef5d5dab1e2b94c6eea71849ebc3ab2a",
+    "0x500bb87c469b8c2491b227d9c0297518a93b7f293ffdb5e1fcfe714250931df5",
+    "0xc831f67d9691c599904d0f472b0428b3a497b294c11c12faebbea2cc79462cd4",
+    "0x2057296ed0f238917432778df8df52941de307d7ba89bcb04c9c1db8188bf0be",
+    "0x2f9f3860e44633d75e475ec97fab4d5b4987d52d8456f18907c7400719620c3a",
   ];
 
   Map<String, String> assignedPrivateKeys = {};
@@ -353,7 +352,8 @@ class _AuthPageState extends State<AuthPage> {
                     controller: _usernameController,
                     decoration: InputDecoration(
                       labelText: "Username",
-                      prefixIcon: Icon(Icons.person, color: Colors.blue.shade700),
+                      prefixIcon:
+                          Icon(Icons.person, color: Colors.blue.shade700),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                         borderSide: BorderSide.none,

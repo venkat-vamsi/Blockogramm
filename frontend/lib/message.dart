@@ -25,7 +25,7 @@ class MessagesPage extends StatefulWidget {
 
 class _MessagesPageState extends State<MessagesPage> {
   late web3.Web3Client web3client;
-  final String contractAddress = "0x94d27754C8C8290aA2C88E8C7F34270fDc7da2CB";
+  final String contractAddress = "0x3Eb11333C089746703258f500e7EEDB414e85812";
   final String abi =
       '[{"inputs":[{"internalType":"string","name":"_username","type":"string"},{"internalType":"string","name":"_userDataHash","type":"string"}],"name":"registerUser","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"_username","type":"string"}],"name":"getUser","outputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"string","name":"","type":"string"},{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_userAddress","type":"address"}],"name":"getUserByAddress","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"_contentHash","type":"string"}],"name":"createPost","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_postId","type":"uint256"}],"name":"getPost","outputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"string","name":"","type":"string"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_receiver","type":"address"},{"internalType":"string","name":"_contentHash","type":"string"}],"name":"sendMessage","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_messageId","type":"uint256"}],"name":"getMessage","outputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"},{"internalType":"string","name":"","type":"string"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"postCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"messageCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}]';
 
@@ -158,8 +158,7 @@ class _MessagesPageState extends State<MessagesPage> {
         currentAddress: widget.currentAddress,
         currentPrivateKey: widget.currentPrivateKey,
       ),
-    ).then(
-        (_) => _fetchMessages());
+    ).then((_) => _fetchMessages());
   }
 
   @override
@@ -184,8 +183,8 @@ class _MessagesPageState extends State<MessagesPage> {
           child: Column(
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0, vertical: 12.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -238,8 +237,8 @@ class _MessagesPageState extends State<MessagesPage> {
                       hintStyle: GoogleFonts.poppins(
                         color: Colors.white.withOpacity(0.5),
                       ),
-                      prefixIcon:
-                          Icon(Icons.search, color: Colors.white.withOpacity(0.7)),
+                      prefixIcon: Icon(Icons.search,
+                          color: Colors.white.withOpacity(0.7)),
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.symmetric(
                           vertical: 15.0, horizontal: 16.0),
@@ -612,7 +611,7 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   late web3.Web3Client web3client;
-  final String contractAddress = "0x94d27754C8C8290aA2C88E8C7F34270fDc7da2CB";
+  final String contractAddress = "0x3Eb11333C089746703258f500e7EEDB414e85812";
   final String abi =
       '[{"inputs":[{"internalType":"string","name":"_username","type":"string"},{"internalType":"string","name":"_userDataHash","type":"string"}],"name":"registerUser","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"_username","type":"string"}],"name":"getUser","outputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"string","name":"","type":"string"},{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_userAddress","type":"address"}],"name":"getUserByAddress","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"_contentHash","type":"string"}],"name":"createPost","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_postId","type":"uint256"}],"name":"getPost","outputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"string","name":"","type":"string"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_receiver","type":"address"},{"internalType":"string","name":"_contentHash","type":"string"}],"name":"sendMessage","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_messageId","type":"uint256"}],"name":"getMessage","outputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"},{"internalType":"string","name":"","type":"string"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"postCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"messageCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}]';
 
@@ -733,14 +732,14 @@ class _ChatPageState extends State<ChatPage> {
           child: Column(
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0, vertical: 12.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
-                      icon: Icon(Icons.arrow_back,
-                          color: Colors.white, size: 28),
+                      icon:
+                          Icon(Icons.arrow_back, color: Colors.white, size: 28),
                       onPressed: () => Navigator.pop(context),
                     ),
                     Text(
@@ -854,8 +853,7 @@ class _ChatPageState extends State<ChatPage> {
                   ),
                 ),
               Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
@@ -924,7 +922,8 @@ class _ChatPageState extends State<ChatPage> {
                       child: IconButton(
                         icon: isSending
                             ? CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation(Colors.white),
+                                valueColor:
+                                    AlwaysStoppedAnimation(Colors.white),
                                 strokeWidth: 2,
                               )
                             : Icon(Icons.send, color: Colors.white),

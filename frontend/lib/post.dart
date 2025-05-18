@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
-import 'package:web3dart/web3dart.dart' as web3;
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:web3dart/web3dart.dart' as web3;
+
 import 'config.dart';
 
 void main() async {
@@ -28,7 +30,8 @@ class PostApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.transparent,
-        textTheme: GoogleFonts.poppinsTextTheme().apply(bodyColor: Colors.white),
+        textTheme:
+            GoogleFonts.poppinsTextTheme().apply(bodyColor: Colors.white),
       ),
       home: const PostPage(
         username: "test_user",
@@ -56,7 +59,7 @@ class PostPage extends StatefulWidget {
 
 class _PostPageState extends State<PostPage> {
   late web3.Web3Client web3client;
-  final String contractAddress = "0x94d27754C8C8290aA2C88E8C7F34270fDc7da2CB";
+  final String contractAddress = "0x3Eb11333C089746703258f500e7EEDB414e85812";
   final String abi = '''[
     {"inputs":[{"internalType":"string","name":"_username","type":"string"},{"internalType":"string","name":"_userDataHash","type":"string"}],"name":"registerUser","outputs":[],"stateMutability":"nonpayable","type":"function"},
     {"inputs":[{"internalType":"string","name":"_username","type":"string"}],"name":"getUser","outputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"string","name":"","type":"string"},{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},
@@ -100,7 +103,8 @@ class _PostPageState extends State<PostPage> {
       setState(() => _isInitialized = true);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to load API key: $e', style: GoogleFonts.poppins()),
+          content:
+              Text('Failed to load API key: $e', style: GoogleFonts.poppins()),
           backgroundColor: Colors.redAccent,
         ),
       );
@@ -121,7 +125,8 @@ class _PostPageState extends State<PostPage> {
       print('Gemini API not initialized');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('API not ready—try again!', style: GoogleFonts.poppins()),
+          content:
+              Text('API not ready—try again!', style: GoogleFonts.poppins()),
           backgroundColor: Colors.redAccent,
         ),
       );
@@ -130,38 +135,53 @@ class _PostPageState extends State<PostPage> {
     try {
       final uri = Uri.parse(
           'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$geminiApiKey');
-      final response = await http.post(
-        uri,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'contents': [
-            {
-              'parts': [
+      final response = await http
+          .post(
+            uri,
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode({
+              'contents': [
                 {
-                  'text': '''
+                  'parts': [
+                    {
+                      'text': '''
 Analyze the following text for harmful content, including threats, violence, hate speech, curse words, or cybercrime indicators (e.g., phishing, hacking instructions). Return exactly one word: "SAFE" if the content is safe, or "NOT_SAFE" if it contains any harmful elements. Do not include explanations or additional text.
 
 Text: "$content"
 '''
+                    }
+                  ]
+                }
+              ],
+              'safetySettings': [
+                {
+                  'category': 'HARM_CATEGORY_HATE_SPEECH',
+                  'threshold': 'BLOCK_MEDIUM_AND_ABOVE'
+                },
+                {
+                  'category': 'HARM_CATEGORY_DANGEROUS_CONTENT',
+                  'threshold': 'BLOCK_MEDIUM_AND_ABOVE'
+                },
+                {
+                  'category': 'HARM_CATEGORY_HARASSMENT',
+                  'threshold': 'BLOCK_MEDIUM_AND_ABOVE'
+                },
+                {
+                  'category': 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
+                  'threshold': 'BLOCK_MEDIUM_AND_ABOVE'
                 }
               ]
-            }
-          ],
-          'safetySettings': [
-            {'category': 'HARM_CATEGORY_HATE_SPEECH', 'threshold': 'BLOCK_MEDIUM_AND_ABOVE'},
-            {'category': 'HARM_CATEGORY_DANGEROUS_CONTENT', 'threshold': 'BLOCK_MEDIUM_AND_ABOVE'},
-            {'category': 'HARM_CATEGORY_HARASSMENT', 'threshold': 'BLOCK_MEDIUM_AND_ABOVE'},
-            {'category': 'HARM_CATEGORY_SEXUALLY_EXPLICIT', 'threshold': 'BLOCK_MEDIUM_AND_ABOVE'}
-          ]
-        }),
-      ).timeout(const Duration(seconds: 10));
+            }),
+          )
+          .timeout(const Duration(seconds: 10));
 
       print('Gemini API response status: ${response.statusCode}');
       print('Gemini API response body: ${response.body}');
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        final result = data['candidates'][0]['content']['parts'][0]['text'].trim();
+        final result =
+            data['candidates'][0]['content']['parts'][0]['text'].trim();
         return result == 'SAFE';
       } else {
         throw Exception('Gemini API error: ${response.body}');
@@ -170,7 +190,8 @@ Text: "$content"
       print('Gemini check error: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Content check failed: $e', style: GoogleFonts.poppins()),
+          content:
+              Text('Content check failed: $e', style: GoogleFonts.poppins()),
           backgroundColor: Colors.redAccent,
         ),
       );
@@ -181,7 +202,8 @@ Text: "$content"
   Future<String> _uploadToIPFS(String data) async {
     final uri = Uri.parse('${Config.ipfsApiUrl}/add');
     final request = http.MultipartRequest('POST', uri)
-      ..files.add(http.MultipartFile.fromString('data', data, filename: 'post.json'));
+      ..files.add(
+          http.MultipartFile.fromString('data', data, filename: 'post.json'));
     final response = await request.send().timeout(const Duration(seconds: 30));
     final responseBody = await response.stream.bytesToString();
     if (response.statusCode != 200) {
@@ -194,7 +216,8 @@ Text: "$content"
     if (_captionController.text.isEmpty && _image == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Add a caption or image, neon runner!', style: GoogleFonts.poppins()),
+          content: Text('Add a caption or image, neon runner!',
+              style: GoogleFonts.poppins()),
           backgroundColor: Colors.purpleAccent,
         ),
       );
@@ -269,7 +292,8 @@ Text: "$content"
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Post live in the BlockoGram!', style: GoogleFonts.poppins()),
+          content: Text('Post live in the BlockoGram!',
+              style: GoogleFonts.poppins()),
           backgroundColor: Colors.blue.shade400,
         ),
       );
@@ -282,7 +306,8 @@ Text: "$content"
       setState(() => _isPosting = false);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Error in the matrix: $e', style: GoogleFonts.poppins()),
+          content:
+              Text('Error in the matrix: $e', style: GoogleFonts.poppins()),
           backgroundColor: Colors.redAccent,
         ),
       );
@@ -355,7 +380,8 @@ Text: "$content"
               if (index < _stageLabels.length - 1)
                 Expanded(
                   child: CustomPaint(
-                    painter: DottedLinePainter(isActive: _stageCompleted[index]),
+                    painter:
+                        DottedLinePainter(isActive: _stageCompleted[index]),
                     size: const Size(double.infinity, 20),
                   ),
                 ),
@@ -504,7 +530,8 @@ Text: "$content"
                               borderRadius: BorderRadius.circular(12),
                               side: BorderSide(color: Colors.purple.shade400),
                             ),
-                            shadowColor: Colors.purple.shade400.withOpacity(0.5),
+                            shadowColor:
+                                Colors.purple.shade400.withOpacity(0.5),
                             elevation: 6,
                           ),
                           child: Text(

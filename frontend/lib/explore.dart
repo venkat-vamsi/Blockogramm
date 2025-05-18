@@ -15,7 +15,7 @@ class ExplorePage extends StatefulWidget {
 class _ExplorePageState extends State<ExplorePage>
     with SingleTickerProviderStateMixin {
   late web3.Web3Client web3client;
-  final String contractAddress = "0x94d27754C8C8290aA2C88E8C7F34270fDc7da2CB";
+  final String contractAddress = "0x3Eb11333C089746703258f500e7EEDB414e85812";
   final String abi = '''[
     {"inputs":[{"internalType":"string","name":"_username","type":"string"},{"internalType":"string","name":"_userDataHash","type":"string"}],"name":"registerUser","outputs":[],"stateMutability":"nonpayable","type":"function"},
     {"inputs":[{"internalType":"string","name":"_username","type":"string"}],"name":"getUser","outputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"string","name":"","type":"string"},{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},
@@ -118,7 +118,8 @@ class _ExplorePageState extends State<ExplorePage>
 
       print("Fetched ${fetchedPosts.length} posts");
       setState(() {
-        posts = fetchedPosts.reversed.toList(); // Reverse to show latest posts first
+        posts = fetchedPosts.reversed
+            .toList(); // Reverse to show latest posts first
         errorMessage =
             fetchedPosts.isEmpty ? "No posts loaded successfully" : null;
       });
@@ -268,7 +269,8 @@ class _ExplorePageState extends State<ExplorePage>
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     color: Colors.transparent,
-                                    margin: EdgeInsets.symmetric(vertical: 10.0),
+                                    margin:
+                                        EdgeInsets.symmetric(vertical: 10.0),
                                     child: Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
@@ -321,7 +323,8 @@ class _ExplorePageState extends State<ExplorePage>
                                                     child: Text(
                                                       post['username'][0]
                                                           .toUpperCase(),
-                                                      style: GoogleFonts.poppins(
+                                                      style:
+                                                          GoogleFonts.poppins(
                                                         color: Colors.white,
                                                         fontSize: 20,
                                                         fontWeight:
@@ -402,8 +405,8 @@ class _ExplorePageState extends State<ExplorePage>
                                           Text(
                                             "Posted on: ${DateTime.fromMillisecondsSinceEpoch(post['timestamp'] * 1000).toString()}",
                                             style: GoogleFonts.poppins(
-                                              color: Colors.white
-                                                  .withOpacity(0.6),
+                                              color:
+                                                  Colors.white.withOpacity(0.6),
                                               fontSize: 12,
                                               fontStyle: FontStyle.italic,
                                             ),
