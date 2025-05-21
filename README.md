@@ -72,5 +72,4 @@
     <li>Optimized gas costs by offloading hash storage to IPFS, ensuring scalability for millions of posts per user.</li>
     <li>Maintained user privacy with end-to-end encryption, even with a public blockchain ledger.</li>
   </ul>
-e="color: #2980b9; margin-top: 20px;">Team</h2>
 </div>
